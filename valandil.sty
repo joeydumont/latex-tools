@@ -1,0 +1,309 @@
+% --------------------------------------------------------------------------- %
+% Author:          Joey Dumont         <joey.dumont@gmail.com>                %
+% Date created:    Apr. 13th, 2016                                            %
+% Description:     Collection of LaTeX commands and other goodies.            %
+% License:         CC0 1.0                                                    %
+%                  <http://creativecommons.org/publicdomain/zero/1.0/>        %
+% --------------------------------------------------------------------------- %
+
+% ----------------------------------- API ----------------------------------- %
+%                                                                             %
+% This package contains some of my favourite shortcuts and commands that ease %
+% my use of LaTeX, especially for mathematics and physics.                    %
+%                                                                             %
+% --------------------------------------------------------------------------- %
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{valandil}[2016/04/13 valandil]
+
+% -- We process the package options with pgfopts.
+\RequirePackage{pgfopts}
+
+% -- We divide the customizations in multiple classes, to make sure
+% -- they can be disabled if they clash with other packages.
+\newif\ifval@theorems
+\newif\ifval@physics
+\newif\ifval@operators
+\newif\ifval@math
+
+\pgfkeys{
+  /val/.is family,
+  val,
+  theorems/.is if=val@theorems,
+  theorems=true,
+  physics/.is if=val@physics,
+  physics=true,
+  operators/.is if=val@operators,
+  operators=true,
+  math/.is if=val@math,
+  math=true
+}
+
+\ProcessPgfOptions{/val}
+
+%% Declares the following environments:
+%% - Theorem
+%% - Lemma
+%% - Corollary
+%% - Proposition
+%% - Postulate
+%% - Conjecture
+%% - Proof
+%% - Definition
+%% - Example
+\ifval@theorems
+    %% Provide a left aligned text
+    \newcommand\cust@quelle[2]{{%
+            \unskip\nobreak\hfil\penalty50
+            \hskip2em\hbox{}\nobreak\hfil{#1{#2}}%
+            \parfillskip=0pt \finalhyphendemerits=0 \par}}
+
+    \RequirePackage{amsthm}
+    \RequirePackage{thmtools}
+    % Define theorems, definitions ... environments
+    \declaretheoremstyle[
+        thmbox={style=M},
+        preheadhook=\vspace{1.5\baselineskip plus 0.5\baselineskip minus 0.5\baselineskip},
+        postfoothook=\vspace{0\baselineskip plus 0.5\baselineskip minus 0\baselineskip}
+        ]{thmMstyle}
+    \declaretheoremstyle[
+        thmbox={style=S},
+        preheadhook=\vspace{1.5\baselineskip plus 0.5\baselineskip minus 0.5\baselineskip},
+        postfoothook=\vspace{0\baselineskip plus 0.5\baselineskip minus 0\baselineskip}
+        ]{thmSstyle}
+    \declaretheoremstyle[
+        headfont=\normalfont\bfseries,
+        headformat={\llap{\NAME }{\NOTE}},
+        headindent=-1ex,
+        notefont=\normalfont\scshape,
+        notebraces={}{},
+        bodyfont=\slshape,
+        headpunct=,
+        numbered=no,
+        spaceabove=1.2\baselineskip plus 0.5\baselineskip minus 0.5\baselineskip,
+        spacebelow=0\baselineskip plus 0.5\baselineskip minus 0\baselineskip,
+        ]{sidestyle}
+    \declaretheoremstyle[
+        headfont=\normalfont\large\itshape,
+        headformat={\NAME\ :},
+        bodyfont=\normalfont,
+        numbered=no,
+        headpunct=,
+        qed=\qedsymbol,
+        spaceabove=0.2\baselineskip plus 0.5\baselineskip minus 0\baselineskip,
+        spacebelow=0\baselineskip plus 0.5\baselineskip minus 0\baselineskip,
+        ]{prfstyle}
+    \declaretheoremstyle[
+        headfont=\normalfont\bfseries\scshape,
+        numbered=unless unique,
+        bodyfont=\normalfont,
+        spaceabove=1em plus 1.5em minus 0.5em,
+        prefoothook=\cust@quelle{\scshape}{End of Example}
+        ]{exmpstyle}
+
+    \declaretheorem[style=thmMstyle,
+        refname={theorem,theorems},
+        Refname={Theorem,Theorems}]{Theorem}
+    \declaretheorem[style=thmSstyle,
+        refname={lemma,lemmata},
+        Refname={Lemma,Lemmata}]{Lemma}
+    \declaretheorem[style=thmSstyle,
+        refname={corollary,corollaries},
+        Refname={Corollary,Corollaries}]{Corollary}
+    \declaretheorem[style=thmSstyle,
+        refname={proposition,propositions},
+        Refname={Proposition,Propositions}]{Proposition}
+    \declaretheorem[style=thmMstyle,
+        refname={postulate,postulates},
+        Refname={Postulate,Postulates}]{Postulate}
+    \declaretheorem[style=thmMstyle,
+        refname={conjecture,conjectures},
+        Refname={Conjecture,Conjectures}]{Conjecture}
+    \declaretheorem[style=prfstyle,
+        refname={proof,proofs},
+        Refname={Proof,Proofs}]{Proof}
+    \declaretheorem[style=sidestyle,name=Defn,
+        refname={definition,definitions},
+        Refname={Definition,Definitions}]{Definition}
+    \declaretheorem[style=exmpstyle,
+        refname={example,examples},
+        Refname={Example,Examples}]{Example}
+\fi
+
+%% Declares a lot of new operators... read below for the list.
+\ifval@operators
+    \RequirePackage{mathtools}
+
+    %% Additional trigonometric functions
+    \DeclareMathOperator{\sech}{sech}
+    \DeclareMathOperator{\csch}{csch}
+    \DeclareMathOperator{\arcsinh}{arcsinh}
+    \DeclareMathOperator{\arccosh}{arccosh}
+    \DeclareMathOperator{\arctanh}{arctanh}
+    \DeclareMathOperator{\arccsch}{arccsch}
+    \DeclareMathOperator{\arcsech}{arcsech}
+    \DeclareMathOperator{\arccoth}{arccoth}
+    \DeclareMathOperator{\sinc}{sinc}
+
+    % Algebra
+    \DeclareMathOperator{\Res}{Res}
+    \DeclareMathOperator{\rank}{rank}
+    \DeclareMathOperator{\proj}{proj}
+    \DeclareMathOperator{\Tr}{Tr}
+    \DeclareMathOperator{\Span}{Span}
+    \DeclareMathOperator{\Ker}{Ker}
+    \DeclareMathOperator{\Image}{Im}
+
+    % Special functions
+    \DeclareMathOperator{\erf}{erf}
+\fi
+
+\ifval@math
+\makeatletter
+
+\newcommand{\pushright}[1]{\ifmeasuring@#1\else\omit\hfill$\displaystyle#1$\fi\ignorespaces}
+\newcommand{\pushleft}[1]{\ifmeasuring@#1\else\omit$\displaystyle#1$\hfill\fi\ignorespaces}
+
+\newcommand*{\miint}[1]{%
+  % #1: overlay symbol
+  \miint@l{#1}{}%
+}
+\newcommand*{\miint@l}[2]{%
+  % #1: overlay symbol
+  % #2: limits
+  \@ifnextchar\limits{%
+    \mint@l{#1}%
+  }{%
+    \@ifnextchar\nolimits{%
+      \miint@l{#1}%
+    }{%
+      \@ifnextchar\displaylimits{%
+        \miint@l{#1}%
+      }{%
+        \miint@s{#2}{#1}%
+      }%
+    }%
+  }%
+}
+\newcommand*{\miint@s}[2]{%
+  % #1: limits
+  % #2: overlay symbol
+  \@ifnextchar_{%
+    \miint@sub{#1}{#2}%
+  }{%
+    \@ifnextchar^{%
+      \miint@sup{#1}{#2}%
+    }{%
+      \miint@{#1}{#2}{}{}%
+    }%
+  }%
+}
+\def\miint@sub#1#2_#3{%
+  \@ifnextchar^{%
+    \miint@sub@sup{#1}{#2}{#3}%
+  }{%
+    \miint@{#1}{#2}{#3}{}%
+  }%
+}
+\def\miint@sup#1#2^#3{%
+  \@ifnextchar_{%
+    \miint@sub@sup{#1}{#2}{#3}%
+  }{%
+    \miint@{#1}{#2}{}{#3}%
+  }%
+}
+\def\miint@sub@sup#1#2#3^#4{%
+  \miint@{#1}{#2}{#3}{#4}%
+}
+\def\miint@sup@sub#1#2#3_#4{%
+  \miint@{#1}{#2}{#4}{#3}%
+}
+\newcommand*{\miint@}[4]{%
+  % #1: \limits, \nolimits, \displaylimits
+  % #2: overlay symbol: -, =, ...
+  % #3: subscript
+  % #4: superscript
+  \mathop{}%
+  \mkern-\thinmuskip
+  \mathchoice{%
+    \miint@@{#1}{#2}{#3}{#4}%
+        \displaystyle\textstyle\scriptstyle
+  }{%
+    \miint@@{#1}{#2}{#3}{#4}%
+        \textstyle\scriptstyle\scriptstyle
+  }{%
+    \miint@@{#1}{#2}{#3}{#4}%
+        \scriptstyle\scriptscriptstyle\scriptscriptstyle
+  }{%
+    \miint@@{#1}{#2}{#3}{#4}%
+        \scriptscriptstyle\scriptscriptstyle\scriptscriptstyle
+  }%
+  \mkern-\thinmuskip
+  \iint#1%
+  \ifx\\#3\\\else_{#3}\fi
+  \ifx\\#4\\\else^{#4}\fi
+}
+\newcommand*{\miint@@}[7]{%
+  % #1: limits
+  % #2: overlay symbol
+  % #3: subscript
+  % #4: superscript
+  % #5: math style
+  % #6: math style for overlay symbol
+  % #7: math style for subscript/superscript
+  \begingroup
+    \sbox0{$#5\iint\m@th$}%
+    \sbox2{$#5\iint_{}\m@th$}%
+    \dimen2=\wd0 %
+    % => \dimen2 = width of \iint
+    \let\miint@limits=#1\relax
+    \ifx\miint@limits\relax
+      \sbox4{$#5\iint_{\kern1sp}^{\kern1sp}\m@th$}%
+      \ifdim\wd4>\wd2 %
+        \let\miint@limits=\nolimits
+      \else
+        \let\miint@limits=\limits
+      \fi
+    \fi
+    \ifx\miint@limits\displaylimits
+      \ifx#5\displaystyle
+        \let\miint@limits=\limits
+      \fi
+    \fi
+    \ifx\miint@limits\limits
+      \sbox0{$#7#3\m@th$}%
+      \sbox2{$#7#4\m@th$}%
+      \ifdim\wd0>\dimen2 %
+        \dimen2=\wd0 %
+      \fi
+      \ifdim\wd2>\dimen2 %
+        \dimen2=\wd2 %
+      \fi
+    \fi
+    \rlap{%
+      $#5%
+        \vcenter{%
+          \hbox to\dimen2{%
+            \hss
+            $#6{#2}\m@th$%
+            \hss
+          }%
+        }%
+      $%
+    }%
+  \endgroup
+}
+\makeatother
+
+\newcommand{\CauchySurf}{\miint{\rule{1em}{0.5pt}}}
+\newcommand{\HadamardSurf}{\miint{\resizebox{1.5em}{\heightof{=}}{=}}}
+
+\newcommand{\bo}[1]{\boldsymbol{#1}}
+\newcommand{\bou}[1]{\boldsymbol{\hat{#1}}}
+\newcommand{\mat}[1]{\mathbf{#1}}
+\newcommand{\dyad}[1]{\bar{\bar{#1}}}
+\newcommand{\dotp}[2]{\left\langle#1,#2\right\rangle}
+\newcommand{\real}[1]{\text{Re}\left\{#1\right\}}
+\newcommand{\imag}[1]{\text{Im}\left\{#1\right\}}
+
+\fi
