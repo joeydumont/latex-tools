@@ -135,7 +135,7 @@
     \RequirePackage{mathtools}
 
     %% Additional trigonometric functions
-    \DeclareMathOperator{\sech}{sech}
+    %\DeclareMathOperator{\sech}{sech}
     \DeclareMathOperator{\csch}{csch}
     \DeclareMathOperator{\arcsinh}{arcsinh}
     \DeclareMathOperator{\arccosh}{arccosh}
@@ -149,7 +149,7 @@
     \DeclareMathOperator{\Res}{Res}
     \DeclareMathOperator{\rank}{rank}
     \DeclareMathOperator{\proj}{proj}
-    \DeclareMathOperator{\Tr}{Tr}
+    %\DeclareMathOperator{\Tr}{Tr}
     \DeclareMathOperator{\Span}{Span}
     \DeclareMathOperator{\Ker}{Ker}
     \DeclareMathOperator{\Image}{Im}
@@ -159,9 +159,11 @@
 \fi
 
 \ifval@math
+
+\RequirePackage{esint}
 \makeatletter
 
-\newcommand{\pushright}[1]{\ifmeasuring@#1\else\omit\hfill$\displaystyle#1$\fi\ignorespaces}
+\newcommand{\pushright}[1]{\ifmeasuring@#1\else\omit\hfill$\displaystyle#1$\fi\hskip6em\ignorespaces}
 \newcommand{\pushleft}[1]{\ifmeasuring@#1\else\omit$\displaystyle#1$\hfill\fi\ignorespaces}
 
 \newcommand*{\miint}[1]{%
@@ -301,9 +303,10 @@
 \newcommand{\bo}[1]{\boldsymbol{#1}}
 \newcommand{\bou}[1]{\boldsymbol{\hat{#1}}}
 \newcommand{\mat}[1]{\mathbf{#1}}
-\newcommand{\dyad}[1]{\bar{\bar{#1}}}
+\newcommand{\dyad}[1]{\bar{\bar{\mat{#1}}}}
 \newcommand{\dotp}[2]{\left\langle#1,#2\right\rangle}
 \newcommand{\real}[1]{\text{Re}\left\{#1\right\}}
 \newcommand{\imag}[1]{\text{Im}\left\{#1\right\}}
+\newcommand{\mean}[1]{\left\langle#1\right\rangle}
 
 \fi
