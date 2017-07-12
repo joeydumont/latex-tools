@@ -14,7 +14,7 @@
 % --------------------------------------------------------------------------- %
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{valandil}[2016/04/13 valandil]
+\ProvidesPackage{vphys}[2016/04/13 vphys]
 
 % -- We process the package options with pgfopts.
 \RequirePackage{pgfopts}
@@ -128,6 +128,27 @@
     \declaretheorem[style=exmpstyle,
         refname={example,examples},
         Refname={Example,Examples}]{Example}
+\fi
+
+\ifval@physics
+
+% -- Symbol for Dirac conjugate (between widebar and overline).
+\newcommand*\xbar[1]{%
+  \hbox{%
+    \vbox{%
+      \hrule height 0.8pt % The actual bar
+      \kern0.3ex%         % Distance between bar and symbol
+      \hbox{%
+        \kern-0.1em%      % Shortening on the left side
+        \ensuremath{#1}%
+        \kern-0.1em%      % Shortening on the right side
+      }%
+    }%
+  }%
+}
+
+\providecommand{\dconj}[1]{\xbar{#1}}
+
 \fi
 
 %% Declares a lot of new operators... read below for the list.
@@ -300,13 +321,13 @@
 \newcommand{\CauchySurf}{\miint{\rule{1em}{0.5pt}}}
 \newcommand{\HadamardSurf}{\miint{\resizebox{1.5em}{\heightof{=}}{=}}}
 
-\newcommand{\bo}[1]{\boldsymbol{#1}}
-\newcommand{\bou}[1]{\boldsymbol{\hat{#1}}}
-\newcommand{\mat}[1]{\mathbf{#1}}
-\newcommand{\dyad}[1]{\bar{\bar{\mat{#1}}}}
-\newcommand{\dotp}[2]{\left\langle#1,#2\right\rangle}
-\newcommand{\real}[1]{\text{Re}\left\{#1\right\}}
-\newcommand{\imag}[1]{\text{Im}\left\{#1\right\}}
-\newcommand{\mean}[1]{\left\langle#1\right\rangle}
+\providecommand{\vb}[1]{\boldsymbol{#1}}
+\providecommand{\vu}[1]{\boldsymbol{\hat{#1}}}
+\providecommand{\mat}[1]{\mathbf{#1}}
+\providecommand{\dyad}[1]{\bar{\bar{\mat{#1}}}}
+\providecommand{\dotp}[2]{\left\langle#1,#2\right\rangle}
+\providecommand{\real}[1]{\text{Re}\left\{#1\right\}}
+\providecommand{\imag}[1]{\text{Im}\left\{#1\right\}}
+\providecommand{\mean}[1]{\left\langle#1\right\rangle}
 
 \fi
