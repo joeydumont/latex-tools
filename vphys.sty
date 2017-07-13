@@ -132,22 +132,24 @@
 
 \ifval@physics
 
-% -- Symbol for Dirac conjugate (between widebar and overline).
-\newcommand*\xbar[1]{%
-  \hbox{%
-    \vbox{%
-      \hrule height 0.8pt % The actual bar
-      \kern0.3ex%         % Distance between bar and symbol
-      \hbox{%
-        \kern-0.1em%      % Shortening on the left side
-        \ensuremath{#1}%
-        \kern-0.1em%      % Shortening on the right side
-      }%
-    }%
-  }%
-}
+    \RequirePackage{slashed}
 
-\providecommand{\dconj}[1]{\xbar{#1}}
+    % -- Symbol for Dirac conjugate (between widebar and overline).
+    \newcommand*\xbar[1]{%
+      \hbox{%
+        \vbox{%
+          \hrule height 0.8pt % The actual bar
+          \kern0.3ex%         % Distance between bar and symbol
+          \hbox{%
+            \kern-0.1em%      % Shortening on the left side
+            \ensuremath{#1}%
+            \kern-0.1em%      % Shortening on the right side
+          }%
+        }%
+      }%
+    }
+
+    \providecommand{\dconj}[1]{\xbar{#1}}
 
 \fi
 
