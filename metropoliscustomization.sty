@@ -1,0 +1,59 @@
+% --------------------------------------------------------------------------- %
+% Author:          Joey Dumont         <joey.dumont@gmail.com>                %
+% Date created:    Aug. 3rd, 2017                                             %
+% Description:     Customization of the Metropolis Beamer theme.              %
+% License:         CC0 1.0                                                    %
+%                  <http://creativecommons.org/publicdomain/zero/1.0/>        %
+% --------------------------------------------------------------------------- %
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{metropoliscustomization}[2017/08/03 metropoliscustomization]
+
+% -- Fancy icons.
+\RequirePackage{fontawesome}
+
+% -- Change basic elements of the theme.
+\setbeamercolor{frametitle}{parent=palette primary,use=palette primary,fg=palette primary.bg,bg=palette primary.fg}
+\setbeamerfont{subtitle}{size=\small}
+\setbeamerfont{normal text}{size=\footnotesize}
+\setbeamerfont{background}{size=\footnotesize}
+\setbeamerfont{author in head/foot}{size=\scriptsize}
+\setbeamercolor{shaded text}{parent=palette primary,use=palette primary,fg=palette primary.fg!50}
+{\usebeamercolor{shaded text}}
+\setbeamertemplate{caption}{\usebeamercolor[fg]{institute}\footnotesize\raggedright\insertcaption\par}
+\setbeamersize{text margin left=1cm, text margin right=1cm}
+
+% -- Change the overall style of the block environment.
+\setbeamertemplate{blocks}[rounded]
+\setbeamercolor{block title}{parent=palette primary,bg=parent.fg,fg=parent.bg}
+\setbeamercolor{block body}{parent=palette primary,use=palette primary,bg=palette primary.bg!20!white,fg=black}
+\setbeamercolor{block title example}{parent=palette primary,use=palette primary,fg=mDarkTeal,bg=mDarkTeal!5!white}
+\setbeamercolor{block body example}{parent=palette primary,use=palette primary,bg=palette primary.bg!7!white,fg=black}
+\setbeamercolor{block body alerted}{parent=palette primary,use=parent,bg=palette primary.bg!5!white,fg=black}
+\setbeamercolor{institute}{parent=palette primary,fg=parent.fg!60}
+\setbeamerfont{block body}{size=\footnotesize}
+\setbeamerfont{block title}{size=\footnotesize}
+\setbeamerfont{block body example}{size=\footnotesize}
+\setbeamerfont{block title example}{size=\footnotesize}
+\setbeamerfont{block body alerted}{size=\footnotesize}
+\setbeamerfont{block title alerted}{size=\footnotesize}
+
+% -- Define some new colours.
+\colorlet{mLightGreenLight}{mLightGreen!50}
+\colorlet{mDarkTealLight}{mDarkTeal!60}
+\colorlet{mLightBrownLight}{mLightBrown!70}
+
+% -- Command that puts information in the footline. Useful for bibliographic references.
+\newcommand{\footlineextra}[1]{
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[yshift=0.75ex,anchor=south west, text width=0.95\paperwidth] at (current page.south west) {\usebeamercolor[fg]{institute}\usebeamerfont{author in head/foot}\hspace{2ex}{#1}};
+    \end{tikzpicture}
+}
+
+% -- Command that puts information at the right of the footline.
+\newcommand{\footlineextraright}[1]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[yshift=0.75ex,anchor=south east] at (current page.south east)
+      {\usebeamercolor[fg]{institute}\usebeamerfont{author in head/foot}{#1}};
+  \end{tikzpicture}
+}
