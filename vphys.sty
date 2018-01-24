@@ -51,6 +51,7 @@
 %% - Proof
 %% - Definition
 %% - Example
+%% - Claim
 \ifval@theorems
     %% Provide a left aligned text
     \newcommand\cust@quelle[2]{{%
@@ -59,7 +60,13 @@
             \parfillskip=0pt \finalhyphendemerits=0 \par}}
 
     \RequirePackage{amsthm}
-    \RequirePackage{thmtools}
+
+    % \leftbar is defined both in thmtools and memoir.
+    % If the memoir class is loaded, we undefine leftbar.
+    \@ifclassloaded{memoir}%
+      {\AtBeginPackage{thmtools}{\let\leftbar\@undefined \let\endleftbar\@undefined}\RequirePackage{thmtools}}%
+      {\RequirePackage{thmtools}}%
+
     % Define theorems, definitions ... environments
     \declaretheoremstyle[
         thmbox={style=M},
@@ -98,36 +105,45 @@
         numbered=unless unique,
         bodyfont=\normalfont,
         spaceabove=1em plus 1.5em minus 0.5em,
-        prefoothook=\cust@quelle{\scshape}{End of Example}
         ]{exmpstyle}
 
     \declaretheorem[style=thmMstyle,
+        name=Theorem,
         refname={theorem,theorems},
-        Refname={Theorem,Theorems}]{Theorem}
+        Refname={Theorem,Theorems}]{theorem}
     \declaretheorem[style=thmSstyle,
         refname={lemma,lemmata},
         Refname={Lemma,Lemmata}]{Lemma}
     \declaretheorem[style=thmSstyle,
+        name=Corollary,
         refname={corollary,corollaries},
-        Refname={Corollary,Corollaries}]{Corollary}
+        Refname={Corollary,Corollaries}]{corollary}
     \declaretheorem[style=thmSstyle,
+        name=Proposition,
         refname={proposition,propositions},
-        Refname={Proposition,Propositions}]{Proposition}
+        Refname={Proposition,Propositions}]{proposition}
     \declaretheorem[style=thmMstyle,
+        name=Postulate,
         refname={postulate,postulates},
-        Refname={Postulate,Postulates}]{Postulate}
+        Refname={Postulate,Postulates}]{postulate}
     \declaretheorem[style=thmMstyle,
+        name=Conjecture
         refname={conjecture,conjectures},
-        Refname={Conjecture,Conjectures}]{Conjecture}
+        Refname={Conjecture,Conjectures}]{conjecture}
     \declaretheorem[style=prfstyle,
         refname={proof,proofs},
         Refname={Proof,Proofs}]{Proof}
-    \declaretheorem[style=sidestyle,name=Defn,
+    \declaretheorem[style=sidestyle,name=Definition,
         refname={definition,definitions},
-        Refname={Definition,Definitions}]{Definition}
+        Refname={Definition,Definitions}]{definition}
     \declaretheorem[style=exmpstyle,
+        name=Example,
         refname={example,examples},
-        Refname={Example,Examples}]{Example}
+        Refname={Example,Examples}]{example}
+    \declaretheorem[style=exmpstyle,
+        name=Claim,
+        refname={claim,claims},
+        Refname={Claim,Claims}]{claim}
 \fi
 
 \ifval@physics
