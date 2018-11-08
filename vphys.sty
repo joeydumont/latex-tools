@@ -336,6 +336,32 @@
 }
 \makeatother
 
+% -- Small over arrows.
+% -- https://tex.stackexchange.com/questions/265841/small-overleftrightarrow
+\makeatletter
+\newcommand{\overleftrightsmallarrow}{\mathpalette{\overarrowsmall@\leftrightarrowfill@}}
+\newcommand{\overrightsmallarrow}{\mathpalette{\overarrowsmall@\rightarrowfill@}}
+\newcommand{\overleftsmallarrow}{\mathpalette{\overarrowsmall@\leftarrowfill@}}
+\newcommand{\overarrowsmall@}[3]{%
+  \vbox{%
+    \ialign{%
+      ##\crcr
+      #1{\smaller@style{#2}}\crcr
+      \noalign{\nointerlineskip}%
+      $\m@th\hfil#2#3\hfil$\crcr
+    }%
+  }%
+}
+\def\smaller@style#1{%
+  \ifx#1\displaystyle\scriptstyle\else
+    \ifx#1\textstyle\scriptstyle\else
+      \scriptscriptstyle
+    \fi
+  \fi
+}
+\makeatother
+\newcommand{\te}[1]{\overleftrightsmallarrow{#1}}
+
 \newcommand{\CauchySurf}{\miint{\rule{1em}{0.5pt}}}
 \newcommand{\HadamardSurf}{\miint{\resizebox{1.5em}{\heightof{=}}{=}}}
 
