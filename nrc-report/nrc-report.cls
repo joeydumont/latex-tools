@@ -64,9 +64,9 @@
 {%
     \RequirePackage[english]{babel}
 }%
+\RequirePackage{csquotes}
 
 \RequirePackage{amsthm,amsmath,amssymb}   % Defines mathematics-related environements, symbols and others.
-\RequirePackage{fixltx2e}                 % Fixes some minor annoyancse of LaTeX2e.
 \RequirePackage{graphicx}                 % Allows the use of graphics.
 \RequirePackage[                          % PDF format config.
       unicode=true,                       % Unicode encoding.
@@ -117,10 +117,10 @@
 }%
 
 \newcommand{\NRC@department}{[department]}
-\newboolean{NRC@department}
+\newboolean{NRC@hasdepartment}
 \newcommand{\department}[1]
 {%
-      \setboolean{NRC@department}{true}
+      \setboolean{NRC@hasdepartment}{true}
       \renewcommand*{\NRC@department}{#1}
 }%
 
@@ -169,6 +169,14 @@
 {
       \setboolean{NRC@hasversion}{true}
       \renewcommand*{\NRC@version}{#1}
+}
+
+\newcommand{\NRC@revision}{}
+\newboolean{NRC@hasrevision}
+\newcommand*{\revision}[1]
+{
+      \setboolean{NRC@hasrevision}{true}
+      \renewcommand*{\NRC@revision}{#1}
 }
 
 \newcommand{\NRC@reportversion}{}
@@ -232,7 +240,9 @@
 
            \vfill
 
-           \NRC@affiliation
+           \ifthenelse{\boolean{NRC@hasdepartment}}
+           {\NRC@department}
+           {}
 
            \vfill
 
@@ -242,11 +252,23 @@
 
            \vfill
 
+           \ifthenelse{\boolean{NRC@hasaffiliation}}
+           {\NRC@affiliation}
+           {}
+
+
+
+           \vfill
+
            \ifthenelse{\boolean{NRC@hassupervisor}}{\emph{Supervisor:}\\\NRC@supervisor}{}
 
            \vfill
 
            \ifthenelse{\boolean{NRC@hasdate}}{\NRC@date}{}
+            \ifthenelse{\boolean{NRC@hasrevision}}{
+              \\
+              \ifthenelse{\boolean{NRC@francais}}{Derni\`{e}re r\'evision: \NRC@revision}{Last revised: \NRC@revision}
+      }
 
 
           \end{center}
