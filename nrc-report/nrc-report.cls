@@ -82,7 +82,7 @@
       urlcolor=blue]                      % Colour of URLs.
       {hyperref}
 \RequirePackage{bookmark}                 % Fixes hyperref's handling of bookmarks.
-\RequirePackage[bottom]{footmisc}         % Forces footnotes to hug the footer of the page.
+%\RequirePackage[bottom]{footmisc}         % Forces footnotes to hug the footer of the page.
 \RequirePackage{units}                    % Typesets units in equations.
 \RequirePackage{tikz}
 \usetikzlibrary{calc}
